@@ -20,7 +20,8 @@ if ($response === false) {
         $tipoConteudo = isset($matches[1]) ? $matches[1] : 'application/octet-stream';
         header("Content-type: $tipoConteudo");
         $extensao = explode('/', $tipoConteudo)[1];
-        header("Content-Disposition: attachment; filename=$title." . pathinfo($title, PATHINFO_EXTENSION));
+        $title = strstr($title, '.', true);
+        header("Content-Disposition: attachment; filename=$title.$extencao"); 
         echo base64_decode($dadosBase64);
     } else {
         $tipoConteudo = mime_content_type($conteudo);

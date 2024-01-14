@@ -21,7 +21,7 @@ if ($response === false) {
         header("Content-type: $tipoConteudo");
         $extensao = explode('/', $tipoConteudo)[1];
         $title = strstr($title, '.', true);
-        header("Content-Disposition: attachment; filename=$title.$extencao"); 
+        header("Content-Disposition: attachment; filename=$title.$extensao"); 
         echo base64_decode($dadosBase64);
     } else {
         $tipoConteudo = mime_content_type($conteudo);

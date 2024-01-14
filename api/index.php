@@ -15,14 +15,15 @@ if ($response === false) {
     $conteudo = $json['feed']['entry'][0]['content']['$t'];
 
     if (isset($_GET['d'])) {
-        $dadosBase64 = explode(',', $conteudo, 2)[1];
-        preg_match('/^data:[^\/]+\/([a-zA-Z]+);base64/', $conteudo, $matches);
-        $tipoConteudo = isset($matches[1]) ? $matches[1] : 'application/octet-stream';
-        header("Content-type: $tipoConteudo");
-        $extensao = explode('/', $tipoConteudo)[1];
-        $title = strstr($title, '.', true);
-        header("Content-Disposition: attachment; filename=$title.$extensao"); 
-        echo base64_decode($dadosBase64);
+    $dadosBase64Array = explode(',', $conteudo, 2);
+    $dadosBase64 = isset($dadosBase64Array[1]) ? $dadosBase64Array[1] : '';
+    preg_match('/^data:[^\/]+\/([a-zA-Z]+);base64/', $conteudo, $matches);
+    $tipoConteudo = isset($matches[1]) ? $matches[1] : 'application/octet-stream';
+    header("Content-type: $tipoConteudo");
+    $extensao = explode('/', $tipoConteudo)[1];
+    $title = strstr($title, '.', true);
+    header("Content-Disposition: attachment; filename=$title.$extensao"); 
+    echo base64_decode($dadosBase64);
     } else {
         $tipoConteudo = mime_content_type($conteudo);
         header("Content-type: $tipoConteudo");

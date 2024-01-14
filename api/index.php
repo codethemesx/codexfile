@@ -15,8 +15,8 @@ if ($response === false) {
     $conteudo = $json['feed']['entry'][0]['content']['$t'];
 
     if (isset($_GET['d'])) {
-    $dadosBase64 = explode(',', $imagemLink, 2)[1];
-    preg_match('/^data:([a-zA-Z\/]+);base64/', $imagemLink, $matches);
+    $dadosBase64 = explode(',', $conteudo, 2)[1];
+    preg_match('/^data:([a-zA-Z\/]+);base64/', $conteudo, $matches);
     $tipoConteudo = isset($matches[1]) ? $matches[1] : 'application/octet-stream';
     header("Content-type: $tipoConteudo");
     $extensao = explode('/', $tipoConteudo)[1];
